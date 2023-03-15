@@ -1,0 +1,15 @@
+A data transfer object (DTO) is an object that we use to transport data 
+between the client and server applications.
+It is not a good practice to return entities in the Web API response; 
+we should instead use data transfer objects. But why is that?
+Well, EF Core uses model classes to map them to the tables in the 
+database and that is the main purpose of a model class. 
+Models have navigational properties and sometimes we don’t want to 
+map them in an API response. So, we can use DTO to remove any 
+property or concatenate properties into a single property. 
+Moreover, there are situations where we want to map all the properties 
+from a model class to the result — but still, we want to use DTOs instead. 
+The reason is if we change the database, we also have to change the 
+properties in a model — but that doesn’t mean our clients want the result 
+changed. So, by using DTOs, the result will stay as it was before the model 
+changes.

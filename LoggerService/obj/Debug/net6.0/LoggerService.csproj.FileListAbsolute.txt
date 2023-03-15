@@ -1,0 +1,17 @@
+C:\Users\KeTlou\Downloads\Kholo\1\LoggerService\bin\Debug\net6.0\LoggerService.deps.json
+C:\Users\KeTlou\Downloads\Kholo\1\LoggerService\bin\Debug\net6.0\LoggerService.dll
+C:\Users\KeTlou\Downloads\Kholo\1\LoggerService\bin\Debug\net6.0\LoggerService.pdb
+C:\Users\KeTlou\Downloads\Kholo\1\LoggerService\bin\Debug\net6.0\Contracts.dll
+C:\Users\KeTlou\Downloads\Kholo\1\LoggerService\bin\Debug\net6.0\Entities.dll
+C:\Users\KeTlou\Downloads\Kholo\1\LoggerService\bin\Debug\net6.0\Contracts.pdb
+C:\Users\KeTlou\Downloads\Kholo\1\LoggerService\bin\Debug\net6.0\Entities.pdb
+C:\Users\KeTlou\Downloads\Kholo\1\LoggerService\obj\Debug\net6.0\LoggerService.csproj.AssemblyReference.cache
+C:\Users\KeTlou\Downloads\Kholo\1\LoggerService\obj\Debug\net6.0\LoggerService.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\KeTlou\Downloads\Kholo\1\LoggerService\obj\Debug\net6.0\LoggerService.AssemblyInfoInputs.cache
+C:\Users\KeTlou\Downloads\Kholo\1\LoggerService\obj\Debug\net6.0\LoggerService.AssemblyInfo.cs
+C:\Users\KeTlou\Downloads\Kholo\1\LoggerService\obj\Debug\net6.0\LoggerService.csproj.CoreCompileInputs.cache
+C:\Users\KeTlou\Downloads\Kholo\1\LoggerService\obj\Debug\net6.0\LoggerService.csproj.CopyComplete
+C:\Users\KeTlou\Downloads\Kholo\1\LoggerService\obj\Debug\net6.0\LoggerService.dll
+C:\Users\KeTlou\Downloads\Kholo\1\LoggerService\obj\Debug\net6.0\refint\LoggerService.dll
+C:\Users\KeTlou\Downloads\Kholo\1\LoggerService\obj\Debug\net6.0\LoggerService.pdb
+C:\Users\KeTlou\Downloads\Kholo\1\LoggerService\obj\Debug\net6.0\ref\LoggerService.dll
