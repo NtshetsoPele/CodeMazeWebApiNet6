@@ -1,4 +1,4 @@
-namespace Shared.DataTransferObjects;
+namespace Shared.DataTransferObjects.Response;
 
 // Instead of a regular class, we are using a record for DTO.
 // This specific record type is known as a Positional record.

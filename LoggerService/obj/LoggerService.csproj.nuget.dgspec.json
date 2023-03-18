@@ -28,6 +28,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {},
           "https://standardbank.pkgs.visualstudio.com/_packaging/Insurance.Packages/nuget/v3/index.json": {},
           "https://standardbank.pkgs.visualstudio.com/_packaging/InsurancePackages/nuget/v3/index.json": {}
@@ -66,7 +67,8 @@
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
-          }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -94,6 +96,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {},
           "https://standardbank.pkgs.visualstudio.com/_packaging/Insurance.Packages/nuget/v3/index.json": {},
           "https://standardbank.pkgs.visualstudio.com/_packaging/InsurancePackages/nuget/v3/index.json": {}
@@ -128,7 +131,8 @@
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
-          }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -156,6 +160,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {},
           "https://standardbank.pkgs.visualstudio.com/_packaging/Insurance.Packages/nuget/v3/index.json": {},
           "https://standardbank.pkgs.visualstudio.com/_packaging/InsurancePackages/nuget/v3/index.json": {}
@@ -200,7 +205,8 @@
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
-          }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }

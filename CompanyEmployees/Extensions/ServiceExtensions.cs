@@ -1,6 +1,8 @@
+using CompanyEmployees.Formatters;
 using Contracts;
 using LoggerService;
 using Microsoft.AspNetCore.Cors.Infrastructure;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Repository;
 using Service;
@@ -79,5 +81,9 @@ public static class ServiceExtensions
     
     public static void ConfigureServiceManager(this IServiceCollection services) =>
         services.AddScoped<IServiceManager, ServiceManager>();
+    
+    public static IMvcBuilder AddCustomCsvFormatter(this IMvcBuilder builder) => 
+        builder.AddMvcOptions((MvcOptions options) => options.OutputFormatters.Add(new
+            CsvOutputFormatter()));
 }
 

@@ -2,7 +2,6 @@ using CompanyEmployees.Extensions;
 using Contracts;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 using NLog;
 
 LogManager.LoadConfiguration(Path.Combine(
@@ -24,6 +23,15 @@ builder.Services.ConfigureSqlContext(builder.Configuration);
 builder.Services.ConfigureRepositoryManager();
 builder.Services.ConfigureServiceManager();
 
+// Enable custom responses from the actions.
+// Suppresses a default model state validation that is 
+// implemented due to the existence of the [ApiController]
+// attribute in all API controllers.
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+    options.SuppressModelStateInvalidFilter = true;
+});
+
 // Registers only the controllers in IServiceCollection
 // and not Views or Pages because they are not required
 // in the Web API project.
@@ -31,12 +39,13 @@ builder.Services.ConfigureServiceManager();
 // route incoming requests. But now, our app will find all of the controllers
 // inside of the Presentation project and configure them with the framework.
 // They are going to be treated the same as if they were defined conventionally.
-builder.Services.AddControllers((MvcOptions options) =>
+builder.Services.AddControllers(options =>
     {
         options.RespectBrowserAcceptHeader = true;
         options.ReturnHttpNotAcceptable = true;
     })
-    .AddXmlDataContractSerializerFormatters
+    .AddXmlDataContractSerializerFormatters()
+    .AddCustomCsvFormatter()
     .AddApplicationPart(typeof(Presentation.AssemblyReference).Assembly);
 
 builder.Services.AddAutoMapper(typeof(Program));

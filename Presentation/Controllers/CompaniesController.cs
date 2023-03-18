@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using Presentation.ModelBinders;
 using Service.Contracts;
+using Shared.DataTransferObjects.Request;
 
 namespace Presentation.Controllers;
 // Controllers should only be responsible for
@@ -27,6 +29,14 @@ namespace Presentation.Controllers;
 // What’s preventing our controllers from injecting
 // anything they want inside the constructor?
 [ApiController]
+// The [ApiController] attribute is applied to a controller
+// class to enable the following opinionated, API-specific
+// behaviors:
+//    Attribute routing requirement
+//    Automatic HTTP 400 responses
+//    Binding source parameter inference
+//    Multipart/form-data request inference
+//    Problem details for error status codes
 // Web API routing routes incoming HTTP requests to
 // the particular action method inside the Web API
 // controller.
@@ -100,10 +110,63 @@ public class CompaniesController : ControllerBase
     // and the id part is applied from the action attribute [HttpGet(“{id:guid}“)].
     // You can also see that we are using a route constraint (:guid part) where we
     // explicitly state that our id parameter is of the GUID type.
-    [HttpGet(template: "{id:guid}")]
+    
+    // Sets the name for the action.
+    // This name will come in handy in the action method for creating a new company.
+    [HttpGet(template: "{id:guid}", Name = "CompanyById")] 
     public IActionResult GetCompany(Guid id)
     {
-        var company = _service.CompanyService.GetCompany(id, trackChanges: false);
+        var company = 
+            _service.CompanyService.GetCompany(id, trackChanges: false);
         return Ok(company);
+    }
+    
+    [HttpPost]
+    public IActionResult CreateCompany([FromBody] CompanyForCreationDto company)
+    {
+        // Because the company parameter comes from the client, it could happen that it
+        // can’t be deserialized. As a result, we have to validate it against the reference
+        // type’s default value, which is null.
+        if (company is null)
+        {
+            return BadRequest("CompanyForCreationDto object is null");
+        }
+        var createdCompany = _service.CompanyService.CreateCompany(company);
+        
+        // CreatedAtRoute will return a status code 201, which stands for Created. Also,
+        // it will populate the body of the response with the new company object as well
+        // as the Location attribute within the response header with the address to retrieve
+        // that company. We need to provide the name of the action, where we can retrieve
+        // the created entity.
+        return CreatedAtRoute("CompanyById", new { id = createdCompany.Id }, 
+            createdCompany);
+    }
+    
+    // Our ArrayModelBinder will be triggered before an action executes. It will
+    // convert the sent string parameter to the IEnumerable<Guid> type, and then
+    // the action will be executed
+    [HttpGet(template: "collection/({ids})", Name = "CompanyCollection")]
+    public IActionResult GetCompanyCollection(
+        [ModelBinder(BinderType = typeof(ArrayModelBinder))] IEnumerable<Guid> ids)
+    {
+        var companies = 
+            _service.CompanyService.GetByIds(ids, trackChanges: false);
+        
+        return Ok(companies);
+    }
+    
+    // Now you may ask, why are we sending a comma-separated string when we
+    // expect a collection of ids in the GetCompanyCollection action? Well,
+    // we can’t just pass a list of ids in the CreatedAtRoute method because
+    // there is no support for the Header Location creation with the list.
+    [HttpPost("collection")]
+    public IActionResult CreateCompanyCollection(
+        [FromBody] IEnumerable<CompanyForCreationDto> companyCollection)
+    {
+        var result = 
+            _service.CompanyService.CreateCompanyCollection(companyCollection);
+        
+        return CreatedAtRoute("CompanyCollection", new { result.ids }, 
+            result.companies);
     }
 }
