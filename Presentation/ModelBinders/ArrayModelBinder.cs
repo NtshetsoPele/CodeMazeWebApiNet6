@@ -8,8 +8,8 @@ public class ArrayModelBinder : IModelBinder
 {
     public Task BindModelAsync(ModelBindingContext bindingContext)
     {
-        // We are creating a model binder for the IEnumerable type. Therefore,
-        // we have to check if our parameter is the same type.
+        // We are creating a model binder for the IEnumerable type.
+        // Therefore, we have to check if our parameter is the same type.
         if(!bindingContext.ModelMetadata.IsEnumerableType)
         {
             bindingContext.Result = ModelBindingResult.Failed();
@@ -29,21 +29,22 @@ public class ArrayModelBinder : IModelBinder
             bindingContext.Result = ModelBindingResult.Success(null);
             return Task.CompletedTask;
         }
-        // In the genericType variable, with the reflection help, we store
-        // the type the IEnumerable consists of. In our case, it is GUID.
-        // With the converter variable, we create a converter to a GUID
-        // type. As you can see, we didn’t just force the GUID type in
+        // In the genericType variable, with the help of reflection, we
+        // store the type the IEnumerable consists of. In our case, it
+        // is GUID.
+        var genericType = 
+            bindingContext.ModelType.GetTypeInfo().GenericTypeArguments[0];
+        // Creates a converter to a GUID type.
+        // As you can see, we didn’t just force the GUID type in
         // this model binder; instead, we inspected what is the nested
         // type of the IEnumerable parameter and then created a converter
-        // for that exact type, thus making this binder generic. After
-        // that, we create an array of type object (objectArray) that
+        // for that exact type, thus making this binder generic.
+        var converter = TypeDescriptor.GetConverter(genericType);
+        // Create an array of type object (objectArray) that
         // consist of all the GUID values we sent to the API and then
         // create an array of GUID types (guidArray), copy all the values
         // from the objectArray to the guidArray, and assign it to the
         // bindingContext.
-        var genericType = 
-            bindingContext.ModelType.GetTypeInfo().GenericTypeArguments[0];
-        var converter = TypeDescriptor.GetConverter(genericType);
         var objectArray = providedValue.Split(new[] { "," }, 
                 StringSplitOptions.RemoveEmptyEntries)
             .Select(x => converter.ConvertFromString(x.Trim()))

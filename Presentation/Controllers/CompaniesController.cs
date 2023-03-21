@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Presentation.ModelBinders;
 using Service.Contracts;
-using Shared.DataTransferObjects.Request;
+using Shared.DataTransferObjects.Create;
+using Shared.DataTransferObjects.Update;
 
 namespace Presentation.Controllers;
 // Controllers should only be responsible for
@@ -168,5 +169,23 @@ public class CompaniesController : ControllerBase
         
         return CreatedAtRoute("CompanyCollection", new { result.ids }, 
             result.companies);
+    }
+    
+    [HttpDelete("{id:guid}")]
+    public IActionResult DeleteCompany(Guid id)
+    {
+        _service.CompanyService.DeleteCompany(id, trackChanges: false);
+        return NoContent();
+    }
+    
+    [HttpPut("{id:guid}")]
+    public IActionResult UpdateCompany(Guid id, [FromBody] CompanyForUpdateDto company)
+    {
+        if (company is null)
+        {
+            return BadRequest("CompanyForUpdateDto object is null");
+        }
+        _service.CompanyService.UpdateCompany(id, company, trackChanges: true);
+        return NoContent();
     }
 }

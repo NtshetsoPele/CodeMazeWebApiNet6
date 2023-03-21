@@ -1,4 +1,4 @@
-namespace Shared.DataTransferObjects.Request;
+namespace Shared.DataTransferObjects.Create;
 
 // The input and output DTO classes may be the same, but we still recommend
 // separating them for easier maintenance and refactoring of our code.

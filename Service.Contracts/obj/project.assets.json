@@ -2,6 +2,16 @@
   "version": 3,
   "targets": {
     "net6.0": {
+      "Entities/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Entities.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Entities.dll": {}
+        }
+      },
       "Shared/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
@@ -15,6 +25,11 @@
     }
   },
   "libraries": {
+    "Entities/1.0.0": {
+      "type": "project",
+      "path": "../Entities/Entities.csproj",
+      "msbuildProject": "../Entities/Entities.csproj"
+    },
     "Shared/1.0.0": {
       "type": "project",
       "path": "../Shared/Shared.csproj",
@@ -23,6 +38,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "Entities >= 1.0.0",
       "Shared >= 1.0.0"
     ]
   },
@@ -64,6 +80,9 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
+            "C:\\Users\\KeTlou\\Downloads\\Kholo\\1\\Entities\\Entities.csproj": {
+              "projectPath": "C:\\Users\\KeTlou\\Downloads\\Kholo\\1\\Entities\\Entities.csproj"
+            },
             "C:\\Users\\KeTlou\\Downloads\\Kholo\\1\\Shared\\Shared.csproj": {
               "projectPath": "C:\\Users\\KeTlou\\Downloads\\Kholo\\1\\Shared\\Shared.csproj"
             }

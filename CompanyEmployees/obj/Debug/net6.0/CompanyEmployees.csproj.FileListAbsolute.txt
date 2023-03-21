@@ -11,6 +11,8 @@ C:\Users\KeTlou\Downloads\Kholo\1\CompanyEmployees\bin\Debug\net6.0\AutoMapper.E
 C:\Users\KeTlou\Downloads\Kholo\1\CompanyEmployees\bin\Debug\net6.0\Azure.Core.dll
 C:\Users\KeTlou\Downloads\Kholo\1\CompanyEmployees\bin\Debug\net6.0\Azure.Identity.dll
 C:\Users\KeTlou\Downloads\Kholo\1\CompanyEmployees\bin\Debug\net6.0\Humanizer.dll
+C:\Users\KeTlou\Downloads\Kholo\1\CompanyEmployees\bin\Debug\net6.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\KeTlou\Downloads\Kholo\1\CompanyEmployees\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\KeTlou\Downloads\Kholo\1\CompanyEmployees\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\KeTlou\Downloads\Kholo\1\CompanyEmployees\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
 C:\Users\KeTlou\Downloads\Kholo\1\CompanyEmployees\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
@@ -39,6 +41,8 @@ C:\Users\KeTlou\Downloads\Kholo\1\CompanyEmployees\bin\Debug\net6.0\Microsoft.Id
 C:\Users\KeTlou\Downloads\Kholo\1\CompanyEmployees\bin\Debug\net6.0\Microsoft.SqlServer.Server.dll
 C:\Users\KeTlou\Downloads\Kholo\1\CompanyEmployees\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
 C:\Users\KeTlou\Downloads\Kholo\1\CompanyEmployees\bin\Debug\net6.0\Mono.TextTemplating.dll
+C:\Users\KeTlou\Downloads\Kholo\1\CompanyEmployees\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\KeTlou\Downloads\Kholo\1\CompanyEmployees\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
 C:\Users\KeTlou\Downloads\Kholo\1\CompanyEmployees\bin\Debug\net6.0\NLog.dll
 C:\Users\KeTlou\Downloads\Kholo\1\CompanyEmployees\bin\Debug\net6.0\NLog.Extensions.Logging.dll
 C:\Users\KeTlou\Downloads\Kholo\1\CompanyEmployees\bin\Debug\net6.0\System.CodeDom.dll

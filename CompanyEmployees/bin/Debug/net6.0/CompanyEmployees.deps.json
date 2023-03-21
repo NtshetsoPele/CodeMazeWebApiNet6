@@ -9,6 +9,7 @@
       "CompanyEmployees/1.0.0": {
         "dependencies": {
           "LoggerService": "1.0.0",
+          "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "6.0.15",
           "Microsoft.EntityFrameworkCore.SqlServer": "7.0.2",
           "Microsoft.EntityFrameworkCore.Tools": "7.0.2",
           "Presentation": "1.0.0",
@@ -151,6 +152,18 @@
           "Microsoft.Extensions.Primitives": "7.0.0"
         }
       },
+      "Microsoft.AspNetCore.JsonPatch/6.0.15": {
+        "dependencies": {
+          "Microsoft.CSharp": "4.7.0",
+          "Newtonsoft.Json": "13.0.1"
+        },
+        "runtime": {
+          "lib/net6.0/Microsoft.AspNetCore.JsonPatch.dll": {
+            "assemblyVersion": "6.0.15.0",
+            "fileVersion": "6.0.1523.12404"
+          }
+        }
+      },
       "Microsoft.AspNetCore.Mvc.Abstractions/2.2.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Routing.Abstractions": "2.2.0",
@@ -174,6 +187,19 @@
           "Microsoft.Extensions.Logging.Abstractions": "7.0.0",
           "System.Diagnostics.DiagnosticSource": "5.0.0",
           "System.Threading.Tasks.Extensions": "4.5.4"
+        }
+      },
+      "Microsoft.AspNetCore.Mvc.NewtonsoftJson/6.0.15": {
+        "dependencies": {
+          "Microsoft.AspNetCore.JsonPatch": "6.0.15",
+          "Newtonsoft.Json": "13.0.1",
+          "Newtonsoft.Json.Bson": "1.0.2"
+        },
+        "runtime": {
+          "lib/net6.0/Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll": {
+            "assemblyVersion": "6.0.15.0",
+            "fileVersion": "6.0.1523.12404"
+          }
         }
       },
       "Microsoft.AspNetCore.ResponseCaching.Abstractions/2.2.0": {
@@ -611,6 +637,25 @@
           }
         }
       },
+      "Newtonsoft.Json/13.0.1": {
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "assemblyVersion": "13.0.0.0",
+            "fileVersion": "13.0.1.25517"
+          }
+        }
+      },
+      "Newtonsoft.Json.Bson/1.0.2": {
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.Bson.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.2.22727"
+          }
+        }
+      },
       "NLog/5.1.1": {
         "runtime": {
           "lib/netstandard2.0/NLog.dll": {
@@ -907,6 +952,7 @@
       },
       "Presentation/1.0.0": {
         "dependencies": {
+          "Microsoft.AspNetCore.JsonPatch": "6.0.15",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Service.Contracts": "1.0.0"
         },
@@ -935,6 +981,7 @@
       },
       "Service.Contracts/1.0.0": {
         "dependencies": {
+          "Entities": "1.0.0",
           "Shared": "1.0.0"
         },
         "runtime": {
@@ -1059,6 +1106,13 @@
       "path": "microsoft.aspnetcore.http.features/2.2.0",
       "hashPath": "microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512"
     },
+    "Microsoft.AspNetCore.JsonPatch/6.0.15": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-uhF/d+Op30RFLS+q40pnS7xPfwsZQnBhG9SHEiFUnJVeqDLiHnKbmeqkIh0RsaZtTO1+MuTGtOu7v1JhagwYLg==",
+      "path": "microsoft.aspnetcore.jsonpatch/6.0.15",
+      "hashPath": "microsoft.aspnetcore.jsonpatch.6.0.15.nupkg.sha512"
+    },
     "Microsoft.AspNetCore.Mvc.Abstractions/2.2.0": {
       "type": "package",
       "serviceable": true,
@@ -1072,6 +1126,13 @@
       "sha512": "sha512-/8sr8ixIUD57UFwUntha9bOwex7/AkZfdk1f9oNJG1Ek7p/uuKVa7fuHmYZpQOf35Oxrt+2Ku4WPwMSbNxOuWg==",
       "path": "microsoft.aspnetcore.mvc.core/2.2.5",
       "hashPath": "microsoft.aspnetcore.mvc.core.2.2.5.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Mvc.NewtonsoftJson/6.0.15": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-nyxCEb+mGFuc+O3TdltHj5HXeswV9BLCtBvotNEypkdSynV6rlRKT1wHgfyXDYvrI4ubII/2ov3YrtEdhK+9uw==",
+      "path": "microsoft.aspnetcore.mvc.newtonsoftjson/6.0.15",
+      "hashPath": "microsoft.aspnetcore.mvc.newtonsoftjson.6.0.15.nupkg.sha512"
     },
     "Microsoft.AspNetCore.ResponseCaching.Abstractions/2.2.0": {
       "type": "package",
@@ -1373,6 +1434,20 @@
       "sha512": "sha512-KZYeKBET/2Z0gY1WlTAK7+RHTl7GSbtvTLDXEZZojUdAPqpQNDL6tHv7VUpqfX5VEOh+uRGKaZXkuD253nEOBQ==",
       "path": "mono.texttemplating/2.2.1",
       "hashPath": "mono.texttemplating.2.2.1.nupkg.sha512"
+    },
+    "Newtonsoft.Json/13.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ppPFpBcvxdsfUonNcvITKqLl3bqxWbDCZIzDWHzjpdAHRFfZe0Dw9HmA0+za13IdyrgJwpkDTDA9fHaxOrt20A==",
+      "path": "newtonsoft.json/13.0.1",
+      "hashPath": "newtonsoft.json.13.0.1.nupkg.sha512"
+    },
+    "Newtonsoft.Json.Bson/1.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-QYFyxhaABwmq3p/21VrZNYvCg3DaEoN/wUuw5nmfAf0X3HLjgupwhkEWdgfb9nvGAUIv3osmZoD3kKl4jxEmYQ==",
+      "path": "newtonsoft.json.bson/1.0.2",
+      "hashPath": "newtonsoft.json.bson.1.0.2.nupkg.sha512"
     },
     "NLog/5.1.1": {
       "type": "package",

@@ -2,8 +2,9 @@ using AutoMapper;
 using AutoMapper.Configuration;
 using Entities.Models;
 using Shared.DataTransferObjects;
-using Shared.DataTransferObjects.Request;
+using Shared.DataTransferObjects.Create;
 using Shared.DataTransferObjects.Response;
+using Shared.DataTransferObjects.Update;
 
 namespace CompanyEmployees;
 
@@ -27,5 +28,9 @@ public class MappingProfile : Profile
         CreateMap<Employee, EmployeeDto>();
         
         CreateMap<EmployeeForCreationDto, Employee>();
+        
+        CreateMap<EmployeeForUpdateDto, Employee>().ReverseMap();
+        
+        CreateMap<CompanyForUpdateDto, Company>();
     }
 }

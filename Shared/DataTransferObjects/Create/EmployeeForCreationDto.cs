@@ -1,4 +1,4 @@
-namespace Shared.DataTransferObjects.Request;
+namespace Shared.DataTransferObjects.Create;
 
 // We don’t have the Id property because we are going to create that Id on 
 // the server-side. But additionally, we don’t have the CompanyId because 
