@@ -47,6 +47,7 @@ builder.Services.AddControllers(options =>
         options.ReturnHttpNotAcceptable = true;
         //options.InputFormatters.Insert(0, GetJsonPatchInputFormatter());
     })
+    .AddNewtonsoftJson()
     .AddXmlDataContractSerializerFormatters()
     .AddCustomCsvFormatter()
     .AddApplicationPart(typeof(Presentation.AssemblyReference).Assembly);

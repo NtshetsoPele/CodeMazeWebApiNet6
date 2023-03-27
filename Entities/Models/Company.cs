@@ -15,6 +15,8 @@ public class Company
     [MaxLength(60, ErrorMessage = "Maximum length for the Name is 60 characters.")]
     public string? Name { get; set; }
     
+    // These attributes serve the purpose to validate our model object while 
+    // creating or updating resources in the database.
     [Required(ErrorMessage = "Company address is a required field.")]
     [MaxLength(60, ErrorMessage = "Maximum length for the Address is 60 characters")]
     public string? Address { get; set; }
