@@ -25,11 +25,38 @@ builder.Services.ConfigureSqlContext(builder.Configuration);
 builder.Services.ConfigureRepositoryManager();
 builder.Services.ConfigureServiceManager();
 
+// To validate against validation rules applied by Data Annotation attributes, 
+// we are going to use the concept of ModelState. It is a dictionary 
+// containing the state of the model and model binding validation.
+
+// It is important to know that model validation occurs after model binding 
+// and reports errors where the data, sent from the client, doesn’t meet our 
+// validation criteria. Both model validation and data binding occur before 
+// our request reaches an action inside a controller. We are going to use the
+// ModelState.IsValid expression to check for those validation rules.
+
+// By default, we don’t have to use the ModelState.IsValid expression in 
+// Web API projects since  controllers are decorated with the [ApiController]
+// attribute.
+// it defaults all the model state errors to 400 – BadRequest and doesn’t 
+// allow us to return our custom error messages with a different status code.
+// So it's suppressed here.
+    
+// The response status code, when validation fails, should be 422 
+// 'Unprocessable Entity'.
+
+// That means that the server understood the content type of the request and
+// the syntax of the request entity is correct, but it was unable to process
+// validation rules applied on the entity inside the request body. If we
+// didn’t suppress the model validation from the [ApiController] attribute,
+// we wouldn’t be able to return this status code (422) since, it would
+// default to 400.
+
 // Enable custom responses from the actions.
 // Suppresses a default model state validation that is 
 // implemented due to the existence of the [ApiController]
 // attribute in all API controllers.
-builder.Services.Configure<ApiBehaviorOptions>(options =>
+builder.Services.Configure<ApiBehaviorOptions>((ApiBehaviorOptions options) =>
 {
     options.SuppressModelStateInvalidFilter = true;
 });
@@ -41,7 +68,7 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
 // route incoming requests. But now, our app will find all of the controllers
 // inside of the Presentation project and configure them with the framework.
 // They are going to be treated the same as if they were defined conventionally.
-builder.Services.AddControllers(options =>
+builder.Services.AddControllers((MvcOptions options) =>
     {
         options.RespectBrowserAcceptHeader = true;
         options.ReturnHttpNotAcceptable = true;

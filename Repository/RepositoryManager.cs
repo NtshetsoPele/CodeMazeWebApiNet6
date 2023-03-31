@@ -19,7 +19,10 @@ public sealed class RepositoryManager : IRepositoryManager
     }
     public ICompanyRepository Company => _companyRepository.Value;
     public IEmployeeRepository Employee => _employeeRepository.Value;
-    public void Save() => _repositoryContext.SaveChanges();
+    // public void Save() => _repositoryContext.SaveChanges();
+    // Using the await keyword is not mandatory.
+    // If we don’t, though, our method will execute synchronously.
+    public async Task SaveAsync() => await _repositoryContext.SaveChangesAsync();
 }
 
 // Leveraging the power of the Lazy class to ensure the lazy initialization

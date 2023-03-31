@@ -32,20 +32,20 @@ public class ArrayModelBinder : IModelBinder
         // In the genericType variable, with the help of reflection, we
         // store the type the IEnumerable consists of. In our case, it
         // is GUID.
-        var genericType = 
+        Type genericType = 
             bindingContext.ModelType.GetTypeInfo().GenericTypeArguments[0];
         // Creates a converter to a GUID type.
         // As you can see, we didn’t just force the GUID type in
         // this model binder; instead, we inspected what is the nested
         // type of the IEnumerable parameter and then created a converter
         // for that exact type, thus making this binder generic.
-        var converter = TypeDescriptor.GetConverter(genericType);
+        TypeConverter converter = TypeDescriptor.GetConverter(genericType);
         // Create an array of type object (objectArray) that
         // consist of all the GUID values we sent to the API and then
         // create an array of GUID types (guidArray), copy all the values
         // from the objectArray to the guidArray, and assign it to the
         // bindingContext.
-        var objectArray = providedValue.Split(new[] { "," }, 
+        object?[] objectArray = providedValue.Split(new[] { "," }, 
                 StringSplitOptions.RemoveEmptyEntries)
             .Select(x => converter.ConvertFromString(x.Trim()))
             .ToArray();

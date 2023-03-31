@@ -5,6 +5,10 @@ namespace Entities.Models;
 
 public class Company
 {
+    // These data annotation attributes serve the purpose to validate our
+    // model object while creating or updating resources in the database.
+    // But we are not making use of them yet.
+    
     // The [Column] attribute will specify that the Id property is going to be
     // mapped with a different name in the database.
     [Column("CompanyId")]

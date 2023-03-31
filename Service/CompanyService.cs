@@ -24,27 +24,29 @@ internal sealed class CompanyService : ICompanyService
         _mapper = mapper;
     }
 
-    public IEnumerable<CompanyDto> GetAllCompanies(bool trackChanges)
+    public async Task<IEnumerable<CompanyDto>> GetAllCompaniesAsync(bool trackChanges)
     {
-        var companies = 
-            _repository.Company.GetAllCompanies(trackChanges);
+        IEnumerable<Company> companies = 
+            await _repository.Company.GetAllCompaniesAsync(trackChanges);
         return _mapper.Map<IEnumerable<CompanyDto>>(companies);
     }
     
-    public CompanyDto GetCompany(Guid id, bool trackChanges)
+    public async Task<CompanyDto> GetCompanyAsync(Guid id, bool trackChanges)
     {
-        var company = _repository.Company.GetCompany(id, trackChanges);
+        Company company = await _repository.Company.GetCompanyAsync(id, trackChanges);
         if (company is null)
+        {
             throw new CompanyNotFoundException(id);
+        }
         var companyDto = _mapper.Map<CompanyDto>(company);
         return companyDto;
     }
     
-    public CompanyDto CreateCompany(CompanyForCreationDto companyDto)
+    public async Task<CompanyDto> CreateCompanyAsync(CompanyForCreationDto companyDto)
     {
         var companyEntity = _mapper.Map<Company>(companyDto);
         _repository.Company.CreateCompany(companyEntity);
-        _repository.Save();
+        await _repository.SaveAsync();
         var companyToReturn = _mapper.Map<CompanyDto>(companyEntity);
         return companyToReturn;
     }
@@ -55,18 +57,25 @@ internal sealed class CompanyService : ICompanyService
     // companies mismatch, we return another bad request response to the client.
     // Finally, we are executing the mapping action and returning the result to the
     // caller.
-    public IEnumerable<CompanyDto> GetByIds(IEnumerable<Guid> ids, bool trackChanges)
+    public async Task<IEnumerable<CompanyDto>> GetByIdsAsync(
+        IEnumerable<Guid> ids, bool trackChanges)
     {
         if (ids is null)
         {
             throw new IdParametersBadRequestException();
         }
-        var companyEntities = _repository.Company.GetByIds(ids, trackChanges);
+        
+        IEnumerable<Company> companyEntities = 
+            await _repository.Company.GetByIdsAsync(ids, trackChanges);
+        
         if (ids.Count() != companyEntities.Count())
         {
             throw new CollectionByIdsBadRequestException();
         }
-        var companiesToReturn = _mapper.Map<IEnumerable<CompanyDto>>(companyEntities);
+        
+        var companiesToReturn = 
+            _mapper.Map<IEnumerable<CompanyDto>>(companyEntities);
+        
         return companiesToReturn;
     }
     
@@ -75,44 +84,52 @@ internal sealed class CompanyService : ICompanyService
     // the database. Finally, we map the company collection back, take all the
     // ids as a comma-separated string, and return the Tuple with these two fields
     // as a result to the caller.
-    public (IEnumerable<CompanyDto> companies, string ids) CreateCompanyCollection
-        (IEnumerable<CompanyForCreationDto> companyCollection)
+    public async Task<(IEnumerable<CompanyDto> companies, string ids)> 
+        CreateCompanyCollectionAsync(IEnumerable<CompanyForCreationDto> companyCollection)
     {
         if (companyCollection is null)
         {
             throw new CompanyCollectionBadRequest();
         }
+        
         var companyEntities = _mapper.Map<IEnumerable<Company>>(companyCollection);
-        foreach (var company in companyEntities)
+        foreach (Company company in companyEntities)
         {
             _repository.Company.CreateCompany(company);
         }
-        _repository.Save();
+        
+        await _repository.SaveAsync();
+        
         var companyCollectionToReturn = _mapper.Map<IEnumerable<CompanyDto>>(companyEntities);
-        var ids = string.Join(",", companyCollectionToReturn.Select(c => c.Id));
+        var ids = string.Join(",", companyCollectionToReturn.Select((CompanyDto c) => c.Id));
+        
         return (companies: companyCollectionToReturn, ids: ids);
     }
     
-    public void DeleteCompany(Guid companyId, bool trackChanges)
+    public async Task DeleteCompanyAsync(Guid companyId, bool trackChanges)
     {
-        var company = _repository.Company.GetCompany(companyId, trackChanges);
+        Company company = 
+            await _repository.Company.GetCompanyAsync(companyId, trackChanges);
         if (company is null)
         {
             throw new CompanyNotFoundException(companyId);
         }
+        
         _repository.Company.DeleteCompany(company);
-        _repository.Save();
+        await _repository.SaveAsync();
     }
     
-    public void UpdateCompany(Guid companyId, CompanyForUpdateDto companyForUpdate, 
-        bool trackChanges)
+    public async Task UpdateCompanyAsync(
+        Guid companyId, CompanyForUpdateDto companyForUpdate, bool trackChanges)
     {
-        var companyEntity = _repository.Company.GetCompany(companyId, trackChanges);
+        Company companyEntity = 
+            await _repository.Company.GetCompanyAsync(companyId, trackChanges);
         if (companyEntity is null)
         {
             throw new CompanyNotFoundException(companyId);
         }
+        
         _mapper.Map(companyForUpdate, companyEntity);
-        _repository.Save();
+        await _repository.SaveAsync();
     }
 }

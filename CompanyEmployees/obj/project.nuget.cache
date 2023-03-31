@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "e8Gl3MUWpg8qrzA+ndnbXVCDPasAA4fEPIX9p2R0xD5FbMVUsO+BaZmT24WZ5z6YfIsMkkm/6J6aDP1uEbV9dQ==",
+  "dgSpecHash": "yk+BS4F9zhRDBwEdw9mSF36LtyKXqAJZjUiBydUNMxPApP2LmJR4ooTw/HKhJdtCFl3fsi7UWn7jwiRUsNKlxA==",
   "success": true,
   "projectFilePath": "C:\\Users\\KeTlou\\Downloads\\Kholo\\1\\CompanyEmployees\\CompanyEmployees.csproj",
   "expectedPackageFiles": [
@@ -66,7 +66,7 @@
     "C:\\Users\\KeTlou\\.nuget\\packages\\microsoft.win32.registry\\5.0.0\\microsoft.win32.registry.5.0.0.nupkg.sha512",
     "C:\\Users\\KeTlou\\.nuget\\packages\\microsoft.win32.systemevents\\5.0.0\\microsoft.win32.systemevents.5.0.0.nupkg.sha512",
     "C:\\Users\\KeTlou\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
-    "C:\\Users\\KeTlou\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\KeTlou\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\KeTlou\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512",
     "C:\\Users\\KeTlou\\.nuget\\packages\\nlog\\5.1.1\\nlog.5.1.1.nupkg.sha512",
     "C:\\Users\\KeTlou\\.nuget\\packages\\nlog.extensions.logging\\5.2.1\\nlog.extensions.logging.5.2.1.nupkg.sha512",

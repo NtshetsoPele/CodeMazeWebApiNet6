@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Presentation.ModelBinders;
 using Service.Contracts;
 using Shared.DataTransferObjects.Create;
+using Shared.DataTransferObjects.Response;
 using Shared.DataTransferObjects.Update;
 
 namespace Presentation.Controllers;
@@ -96,96 +97,104 @@ public class CompaniesController : ControllerBase
     // the OK method returns all the companies and also the status code 200 —
     // which stands for OK. If an exception occurs, we are going to return the
     // internal server error with the status code 500.
-    // Because there is no route attribute right above the action, the route for
+    // As there's no route attribute right above the action, the route for
     // the GetCompanies action will be api/companies which is the route 
     // placed on top of our controller.
-    public IActionResult GetCompanies() 
+    public async Task<IActionResult> GetCompanies() 
     {
-        var companies = 
-            _service.CompanyService.GetAllCompanies(trackChanges: false);
+        IEnumerable<CompanyDto> companies = 
+            await _service.CompanyService.GetAllCompaniesAsync(trackChanges: false);
+        
         return Ok(companies);
     }
     
     // The route for this action is /api/companies/id and that’s because the 
     // /api/companies part applies from the root route (on top of the controller)
     // and the id part is applied from the action attribute [HttpGet(“{id:guid}“)].
-    // You can also see that we are using a route constraint (:guid part) where we
-    // explicitly state that our id parameter is of the GUID type.
+    // You can also see that we are using a route constraint (':guid' part) where
+    // we explicitly state that our id parameter is of the GUID type.
     
     // Sets the name for the action.
     // This name will come in handy in the action method for creating a new company.
     [HttpGet(template: "{id:guid}", Name = "CompanyById")] 
-    public IActionResult GetCompany(Guid id)
+    public async Task<IActionResult> GetCompany(Guid id)
     {
-        var company = 
-            _service.CompanyService.GetCompany(id, trackChanges: false);
+        CompanyDto company = 
+            await _service.CompanyService.GetCompanyAsync(id, trackChanges: false);
+        
         return Ok(company);
     }
     
     [HttpPost]
-    public IActionResult CreateCompany([FromBody] CompanyForCreationDto company)
+    public async Task<IActionResult> CreateCompany([FromBody] CompanyForCreationDto company)
     {
         // Because the company parameter comes from the client, it could happen that it
         // can’t be deserialized. As a result, we have to validate it against the reference
         // type’s default value, which is null.
         if (company is null)
         {
-            return BadRequest("CompanyForCreationDto object is null");
+            return BadRequest(nameof(CompanyForCreationDto) + " object is null");
         }
-        var createdCompany = _service.CompanyService.CreateCompany(company);
+        
+        CompanyDto createdCompany = 
+            await _service.CompanyService.CreateCompanyAsync(company);
         
         // CreatedAtRoute will return a status code 201, which stands for Created. Also,
         // it will populate the body of the response with the new company object as well
         // as the Location attribute within the response header with the address to retrieve
         // that company. We need to provide the name of the action, where we can retrieve
         // the created entity.
-        return CreatedAtRoute("CompanyById", new { id = createdCompany.Id }, 
-            createdCompany);
+        return CreatedAtRoute(
+            "CompanyById", new { id = createdCompany.Id }, createdCompany);
     }
     
-    // Our ArrayModelBinder will be triggered before an action executes. It will
+    // Our 'ArrayModelBinder' will be triggered before an action executes. It will
     // convert the sent string parameter to the IEnumerable<Guid> type, and then
     // the action will be executed
     [HttpGet(template: "collection/({ids})", Name = "CompanyCollection")]
-    public IActionResult GetCompanyCollection(
+    public async Task<IActionResult> GetCompanyCollection(
         [ModelBinder(BinderType = typeof(ArrayModelBinder))] IEnumerable<Guid> ids)
     {
-        var companies = 
-            _service.CompanyService.GetByIds(ids, trackChanges: false);
+        IEnumerable<CompanyDto> companies = 
+            await _service.CompanyService.GetByIdsAsync(ids, trackChanges: false);
         
         return Ok(companies);
     }
     
-    // Now you may ask, why are we sending a comma-separated string when we
-    // expect a collection of ids in the GetCompanyCollection action? Well,
-    // we can’t just pass a list of ids in the CreatedAtRoute method because
+    // Why are we sending a comma-separated string when we expect a collection
+    // of ids in the GetCompanyCollection action?
+    // Well, we can’t just pass a list of ids in the 'CreatedAtRoute' method because
     // there is no support for the Header Location creation with the list.
     [HttpPost("collection")]
-    public IActionResult CreateCompanyCollection(
+    public async Task<IActionResult> CreateCompanyCollection(
         [FromBody] IEnumerable<CompanyForCreationDto> companyCollection)
     {
-        var result = 
-            _service.CompanyService.CreateCompanyCollection(companyCollection);
+        (IEnumerable<CompanyDto> companies, string ids) result = 
+            await _service.CompanyService.CreateCompanyCollectionAsync(companyCollection);
         
-        return CreatedAtRoute("CompanyCollection", new { result.ids }, 
-            result.companies);
+        return CreatedAtRoute(
+            "CompanyCollection", new { result.ids }, result.companies);
     }
     
     [HttpDelete("{id:guid}")]
-    public IActionResult DeleteCompany(Guid id)
+    public async Task<IActionResult> DeleteCompany(Guid id)
     {
-        _service.CompanyService.DeleteCompany(id, trackChanges: false);
+        await _service.CompanyService.DeleteCompanyAsync(id, trackChanges: false);
+        
         return NoContent();
     }
     
     [HttpPut("{id:guid}")]
-    public IActionResult UpdateCompany(Guid id, [FromBody] CompanyForUpdateDto company)
+    public async Task<IActionResult> UpdateCompany(
+        Guid id, [FromBody] CompanyForUpdateDto company)
     {
         if (company is null)
         {
-            return BadRequest("CompanyForUpdateDto object is null");
+            return BadRequest($"'{nameof(CompanyForUpdateDto)}' object is null");
         }
-        _service.CompanyService.UpdateCompany(id, company, trackChanges: true);
+        
+        await _service.CompanyService.UpdateCompanyAsync(id, company, trackChanges: true);
+        
         return NoContent();
     }
 }
