@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Options;
 using NLog;
+using Presentation.ActionFilters;
 
 LogManager.LoadConfiguration(Path.Combine(
     path1: Directory.GetCurrentDirectory(),
@@ -60,6 +61,9 @@ builder.Services.Configure<ApiBehaviorOptions>((ApiBehaviorOptions options) =>
 {
     options.SuppressModelStateInvalidFilter = true;
 });
+
+// Action filter will be called as a service
+builder.Services.AddScoped<ValidationFilterAttribute>();
 
 // Registers only the controllers in IServiceCollection
 // and not Views or Pages because they are not required

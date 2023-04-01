@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Presentation.ActionFilters;
 using Presentation.ModelBinders;
 using Service.Contracts;
 using Shared.DataTransferObjects.Create;
@@ -126,24 +127,17 @@ public class CompaniesController : ControllerBase
     }
     
     [HttpPost]
+    [ServiceFilter(typeof(ValidationFilterAttribute))]
     public async Task<IActionResult> CreateCompany([FromBody] CompanyForCreationDto company)
     {
-        // Because the company parameter comes from the client, it could happen that it
-        // can’t be deserialized. As a result, we have to validate it against the reference
-        // type’s default value, which is null.
-        if (company is null)
-        {
-            return BadRequest(nameof(CompanyForCreationDto) + " object is null");
-        }
-        
         CompanyDto createdCompany = 
             await _service.CompanyService.CreateCompanyAsync(company);
         
         // CreatedAtRoute will return a status code 201, which stands for Created. Also,
         // it will populate the body of the response with the new company object as well
-        // as the Location attribute within the response header with the address to retrieve
-        // that company. We need to provide the name of the action, where we can retrieve
-        // the created entity.
+        // as the 'Location' attribute within the response header with the address to
+        // retrieve that company. We need to provide the name of the action, where we
+        // can retrieve the created entity.
         return CreatedAtRoute(
             "CompanyById", new { id = createdCompany.Id }, createdCompany);
     }
@@ -185,14 +179,10 @@ public class CompaniesController : ControllerBase
     }
     
     [HttpPut("{id:guid}")]
+    [ServiceFilter(typeof(ValidationFilterAttribute))]
     public async Task<IActionResult> UpdateCompany(
         Guid id, [FromBody] CompanyForUpdateDto company)
     {
-        if (company is null)
-        {
-            return BadRequest($"'{nameof(CompanyForUpdateDto)}' object is null");
-        }
-        
         await _service.CompanyService.UpdateCompanyAsync(id, company, trackChanges: true);
         
         return NoContent();
