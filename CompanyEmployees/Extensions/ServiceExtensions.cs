@@ -34,11 +34,12 @@ public static class ServiceExtensions
     public static void ConfigureCors(this IServiceCollection services) => 
         services.AddCors((CorsOptions options) => 
         {
-            options.AddPolicy(name: "CorsPolicy", (CorsPolicyBuilder builder) => 
+            options.AddPolicy(name: "CorsPolicy", configurePolicy: (CorsPolicyBuilder builder) => 
                 builder
                     .AllowAnyOrigin()
                     .AllowAnyMethod()
-                    .AllowAnyHeader());
+                    .AllowAnyHeader()
+                    .WithExposedHeaders("X-Pagination"));
         });
     
     // ASP.NET Core applications are by default self-hosted, and if we want to 

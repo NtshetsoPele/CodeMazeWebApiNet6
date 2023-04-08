@@ -3,8 +3,10 @@ C:\Users\KeTlou\Downloads\Kholo\1\LoggerService\bin\Debug\net6.0\LoggerService.d
 C:\Users\KeTlou\Downloads\Kholo\1\LoggerService\bin\Debug\net6.0\LoggerService.pdb
 C:\Users\KeTlou\Downloads\Kholo\1\LoggerService\bin\Debug\net6.0\Contracts.dll
 C:\Users\KeTlou\Downloads\Kholo\1\LoggerService\bin\Debug\net6.0\Entities.dll
+C:\Users\KeTlou\Downloads\Kholo\1\LoggerService\bin\Debug\net6.0\Shared.dll
 C:\Users\KeTlou\Downloads\Kholo\1\LoggerService\bin\Debug\net6.0\Contracts.pdb
 C:\Users\KeTlou\Downloads\Kholo\1\LoggerService\bin\Debug\net6.0\Entities.pdb
+C:\Users\KeTlou\Downloads\Kholo\1\LoggerService\bin\Debug\net6.0\Shared.pdb
 C:\Users\KeTlou\Downloads\Kholo\1\LoggerService\obj\Debug\net6.0\LoggerService.csproj.AssemblyReference.cache
 C:\Users\KeTlou\Downloads\Kholo\1\LoggerService\obj\Debug\net6.0\LoggerService.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\KeTlou\Downloads\Kholo\1\LoggerService\obj\Debug\net6.0\LoggerService.AssemblyInfoInputs.cache

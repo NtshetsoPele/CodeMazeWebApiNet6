@@ -2,7 +2,9 @@ C:\Users\KeTlou\Downloads\Kholo\1\Contracts\bin\Debug\net6.0\Contracts.deps.json
 C:\Users\KeTlou\Downloads\Kholo\1\Contracts\bin\Debug\net6.0\Contracts.dll
 C:\Users\KeTlou\Downloads\Kholo\1\Contracts\bin\Debug\net6.0\Contracts.pdb
 C:\Users\KeTlou\Downloads\Kholo\1\Contracts\bin\Debug\net6.0\Entities.dll
+C:\Users\KeTlou\Downloads\Kholo\1\Contracts\bin\Debug\net6.0\Shared.dll
 C:\Users\KeTlou\Downloads\Kholo\1\Contracts\bin\Debug\net6.0\Entities.pdb
+C:\Users\KeTlou\Downloads\Kholo\1\Contracts\bin\Debug\net6.0\Shared.pdb
 C:\Users\KeTlou\Downloads\Kholo\1\Contracts\obj\Debug\net6.0\Contracts.csproj.AssemblyReference.cache
 C:\Users\KeTlou\Downloads\Kholo\1\Contracts\obj\Debug\net6.0\Contracts.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\KeTlou\Downloads\Kholo\1\Contracts\obj\Debug\net6.0\Contracts.AssemblyInfoInputs.cache

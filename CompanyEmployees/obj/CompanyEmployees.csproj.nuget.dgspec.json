@@ -135,6 +135,9 @@
             "projectReferences": {
               "C:\\Users\\KeTlou\\Downloads\\Kholo\\1\\Entities\\Entities.csproj": {
                 "projectPath": "C:\\Users\\KeTlou\\Downloads\\Kholo\\1\\Entities\\Entities.csproj"
+              },
+              "C:\\Users\\KeTlou\\Downloads\\Kholo\\1\\Shared\\Shared.csproj": {
+                "projectPath": "C:\\Users\\KeTlou\\Downloads\\Kholo\\1\\Shared\\Shared.csproj"
               }
             }
           }

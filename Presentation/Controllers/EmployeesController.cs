@@ -1,8 +1,11 @@
+using System.Text.Json;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
 using Shared.DataTransferObjects.Create;
+using Shared.DataTransferObjects.Response;
 using Shared.DataTransferObjects.Update;
+using Shared.RequestFeatures;
 
 namespace Presentation.Controllers;
 
@@ -11,7 +14,7 @@ namespace Presentation.Controllers;
 // To get an employee or employees from the database, we have to specify the
 // companyId parameter, and that is something all actions will have in common.
 // For that reason, we have specified this route as our root route.
-[Route("api/companies/{companyId:guid}/employees/{id:guid}")]
+[Route("api/companies/{companyId:guid}/employees")]
 [ApiController]
 public class EmployeesController : ControllerBase
 {
@@ -23,14 +26,35 @@ public class EmployeesController : ControllerBase
     // from the main route. For that reason, we didn’t place it in the [HttpGet] 
     // attribute as we did with the GetCompany action.
     [HttpGet]
-    public IActionResult GetEmployeesForCompany(Guid companyId)
+    //public IActionResult GetEmployeesForCompany(Guid companyId)
+    public IActionResult GetEmployeesForCompany(Guid companyId,
+        // Using [FromQuery] to point out that we’ll be using query parameters
+        // to define which page and how many employees we are requesting.
+        // The EmployeeParameters class is the container for the actual
+        // parameters for the Employee entity.
+        [FromQuery] EmployeeParameters employeeParameters)
     {
-        var employees = 
-            _service.EmployeeService.GetEmployees(companyId, trackChanges: false);
+        /*
+        IEnumerable<EmployeeDto> employees = 
+            _service.EmployeeService.GetEmployees(companyId, 
+                employeeParameters, trackChanges: false);
         return Ok(employees);
+        */
+
+        (IEnumerable<EmployeeDto> employees, MetaData metaData) pagedResult = 
+            _service.EmployeeService.GetEmployees(companyId,
+            employeeParameters, trackChanges: false);
+        
+        // The new thing in this action is that we modify the response header
+        // and add our metadata as the X-Pagination header. For this, we need
+        // the System.Text.Json namespace.
+        Response.Headers.Add("X-Pagination", 
+            JsonSerializer.Serialize(pagedResult.metaData));
+        
+        return Ok(pagedResult.employees);
     }
 
-    [HttpGet("", Name = "GetEmployeeForCompany")]
+    [HttpGet("{id:guid}", Name = "GetEmployeeForCompany")]
     public IActionResult GetEmployeeForCompany(Guid companyId, Guid id)
     {
         var employee = 
@@ -40,7 +64,7 @@ public class EmployeesController : ControllerBase
     
     [HttpPost]
     public IActionResult CreateEmployeeForCompany(Guid companyId, 
-        [FromBody] EmployeeForCreationDto employee)
+        [FromBody] EmployeeForCreationDto? employee)
     {
         if (employee is null)
         {
@@ -48,7 +72,7 @@ public class EmployeesController : ControllerBase
         }
 
         // Extra error messages can be included targeting specific properties.
-        ModelState.AddModelError(key: "Age", errorMessage: "Extra message things");
+        // ModelState.AddModelError(key: "Age", errorMessage: "Extra message things");
         if (!ModelState.IsValid)
         {
             return UnprocessableEntity(ModelState);
@@ -63,7 +87,7 @@ public class EmployeesController : ControllerBase
             employeeToReturn);
     }
     
-    [HttpDelete("")]
+    [HttpDelete("{id:guid}")]
     public IActionResult DeleteEmployeeForCompany(Guid companyId, Guid id)
     {
         _service.EmployeeService.DeleteEmployeeForCompany(companyId, id, 
@@ -78,9 +102,9 @@ public class EmployeesController : ControllerBase
     // default values and the whole object will be updated — not just
     // the Age column. That’s because PUT is a request for a full
     // update. This is very important to know.
-    [HttpPut("")]
+    [HttpPut("{id:guid}")]
     public IActionResult UpdateEmployeeForCompany(Guid companyId, Guid id, 
-        [FromBody] EmployeeForUpdateDto employee)
+        [FromBody] EmployeeForUpdateDto? employee)
     {
         if (employee is null)
         {
@@ -97,9 +121,9 @@ public class EmployeesController : ControllerBase
         return NoContent();
     }
     
-    [HttpPatch("")]
+    [HttpPatch("{id:guid}")]
     public IActionResult PartiallyUpdateEmployeeForCompany(Guid companyId, Guid id,
-        [FromBody] JsonPatchDocument<EmployeeForUpdateDto> patchDoc)
+        [FromBody] JsonPatchDocument<EmployeeForUpdateDto>? patchDoc)
     {
         if (patchDoc is null)
         {

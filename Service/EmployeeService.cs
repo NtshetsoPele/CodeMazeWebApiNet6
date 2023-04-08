@@ -6,6 +6,7 @@ using Service.Contracts;
 using Shared.DataTransferObjects.Create;
 using Shared.DataTransferObjects.Response;
 using Shared.DataTransferObjects.Update;
+using Shared.RequestFeatures;
 
 namespace Service;
 
@@ -23,15 +24,28 @@ public class EmployeeService : IEmployeeService
         _mapper = mapper;
     }
 
-    public IEnumerable<EmployeeDto> GetEmployees(Guid companyId, bool trackChanges)
+    public (IEnumerable<EmployeeDto> employees, MetaData metaData) 
+        GetEmployees(Guid companyId, EmployeeParameters employeeParameters, 
+            bool trackChanges)
     {
         CheckIfCompanyExists(companyId, trackChanges).Wait();
         
-        IEnumerable<Employee> employeeEntities = 
-            _repository.Employee.GetEmployees(companyId, trackChanges);
+        /*
+         IEnumerable<Employee> employeeEntities = 
+            _repository.Employee.GetEmployees(
+                companyId, employeeParameters, trackChanges);
         var employeeDtos = _mapper.Map<IEnumerable<EmployeeDto>>(employeeEntities);
         
         return employeeDtos;
+        */
+        
+        PagedList<Employee> employeesWithMetaData = _repository.Employee
+            .GetEmployees(companyId, employeeParameters, trackChanges);
+        
+        var employeesDto = 
+            _mapper.Map<IEnumerable<EmployeeDto>>(employeesWithMetaData);
+        
+        return (employees: employeesDto, metaData: employeesWithMetaData.MetaData);
     }
     
     public EmployeeDto GetEmployee(Guid companyId, Guid id, bool trackChanges)

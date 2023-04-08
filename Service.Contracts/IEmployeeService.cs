@@ -3,12 +3,14 @@ using Shared.DataTransferObjects;
 using Shared.DataTransferObjects.Create;
 using Shared.DataTransferObjects.Response;
 using Shared.DataTransferObjects.Update;
+using Shared.RequestFeatures;
 
 namespace Service.Contracts;
 
 public interface IEmployeeService
 {
-    IEnumerable<EmployeeDto> GetEmployees(Guid companyId, bool trackChanges);
+    (IEnumerable<EmployeeDto> employees, MetaData metaData) GetEmployees(
+        Guid companyId, EmployeeParameters employeeParameters, bool trackChanges);
     EmployeeDto GetEmployee(Guid companyId, Guid id, bool trackChanges);
     EmployeeDto CreateEmployeeForCompany(Guid companyId, 
         EmployeeForCreationDto employeeForCreation, bool trackChanges);
