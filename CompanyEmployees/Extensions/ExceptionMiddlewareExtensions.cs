@@ -12,7 +12,7 @@ namespace CompanyEmployees.Extensions;
 // the Web API project, we can extract all the exception handling logic into a single
 // centralized place. By doing that, we make our actions cleaner, more readable, and the error
 // handling process more maintainable.
-// In this chapter, we are going to refactor our code to use the built-in middleware for global
+// Here, we are going to refactor our code to use the built-in middleware for global
 // error handling to demonstrate the benefits of this approach.
 public static class ExceptionMiddlewareExtensions
 {
@@ -20,9 +20,9 @@ public static class ExceptionMiddlewareExtensions
     {
         // The UseExceptionHandler middleware is a built-in middleware that we can use to handle
         // exceptions.
-        app.UseExceptionHandler((IApplicationBuilder appBuilder) =>
+        app.UseExceptionHandler(configure: (IApplicationBuilder appBuilder) =>
         {
-            appBuilder.Run(async (HttpContext context) =>
+            appBuilder.Run(handler: async (HttpContext context) =>
             {
                 //context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                 context.Response.ContentType = "application/json";

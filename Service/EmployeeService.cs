@@ -38,6 +38,11 @@ public class EmployeeService : IEmployeeService
         
         return employeeDtos;
         */
+
+        if (!employeeParameters.ValidAgeRange)
+        {
+            throw new MaxAgeRangeBadRequestException();
+        }
         
         PagedList<Employee> employeesWithMetaData = _repository.Employee
             .GetEmployees(companyId, employeeParameters, trackChanges);

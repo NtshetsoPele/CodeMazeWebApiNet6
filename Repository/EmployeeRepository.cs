@@ -1,5 +1,6 @@
 using Contracts;
 using Entities.Models;
+using Repository.Extensions;
 using Shared.RequestFeatures;
 
 namespace Repository;
@@ -28,14 +29,14 @@ public class EmployeeRepository : RepositoryBase<Employee>, IEmployeeRepository
         // Even though we have an additional call to the database with the 
         // CountAsync method, this solution was tested upon millions of rows and 
         // was much faster than the previous one.
-        IEnumerable<Employee> employees = FindByCondition((Employee e) 
+        IEnumerable<Employee> employees = FindByCondition(expression: (Employee e) 
                 => e.CompanyId.Equals(companyId), trackChanges)
+            .FilterEmployees(employeeParameters.MinAge, employeeParameters.MaxAge)
             .OrderBy((Employee e) => e.Name)
-            .Skip((employeeParameters.PageNumber - 1) * employeeParameters.PageSize)
-            .Take(employeeParameters.PageSize)
+            .Search(employeeParameters.SearchTerm)
             .ToList();
         
-        int count = FindByCondition((Employee e) 
+        int count = FindByCondition(expression: (Employee e) 
                 => e.CompanyId.Equals(companyId), trackChanges).Count();
         
         return new PagedList<Employee>(employees, count, 

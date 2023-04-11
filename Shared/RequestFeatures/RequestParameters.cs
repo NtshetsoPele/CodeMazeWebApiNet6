@@ -12,6 +12,7 @@ public abstract class RequestParameters
     public byte PageSize
     {
         get => _pageSize;
-        set => _pageSize = (value > MaxPageSize) ? MaxPageSize : value;
+        set => _pageSize = 
+            (value > MaxPageSize) ? MaxPageSize : value;
     }
 }
